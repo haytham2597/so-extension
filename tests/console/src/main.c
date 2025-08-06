@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../../../src/libs/logger.h"
-#include "../../../src/exts/log_ext.h"
+#include "../../../so-exts/libs/logger.h"
+#include "../../../so-exts/exts/log_ext.h"
 #include "commons/string.h"
 
 int main(int argc, char* argv[]) 
