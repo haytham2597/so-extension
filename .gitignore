@@ -1,0 +1,8 @@
+tests/console/obj/main.o
+bin/*
+obj/*
+tests/console/obj/*
+tests/console/bin/*
+*.log
+*/*.log
+tests/console/test.log
