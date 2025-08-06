@@ -8,10 +8,10 @@
 	},
 	"folders": [
 		{
-			"path": "so-exts"
+			"path": "tests"
 		},
 		{
-			"path": "tests"
+			"path": "soexts"
 		}
 	]
 }

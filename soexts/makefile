@@ -33,4 +33,3 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 clean:
 	-rm -rfv obj bin
-	#rm-rf $(OBJ_DIR) $(LIB_DIR)

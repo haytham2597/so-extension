@@ -2,6 +2,7 @@
 LIBS=commons pthread readline m
 
 # Custom libraries' paths
+#STATIC_LIBPATHS=
 STATIC_LIBPATHS=../../soexts
 
 # Compiler flags
