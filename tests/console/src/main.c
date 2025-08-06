@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../../../so-exts/libs/logger.h"
-#include "../../../so-exts/exts/log_ext.h"
-#include "commons/string.h"
+#include "libs/logger.h"
+#include "exts/log_ext.h"
 
 int main(int argc, char* argv[]) 
 {
@@ -21,4 +20,5 @@ int main(int argc, char* argv[])
     log_white_background(logger,"%s", "White back");
     log_info(logger, "Esto es uno de catedra");
     log_trace(logger, "Esto es uno de catedra trace");
+    log_trace(logger, "Esto es uno de catedra nueva");
 }
