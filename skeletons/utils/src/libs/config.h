@@ -24,6 +24,7 @@ t_config* config;
 
 typedef struct{
     char* ip_memoria;
+    char* ip_cpu;
     int puerto_memoria;
     int puerto_escucha_dispatch;
     int puerto_escucha_interrupt;

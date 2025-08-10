@@ -36,7 +36,8 @@ typedef enum{
 typedef enum{
     SHORT_SCHEDULER=DT_BYTE+1,
     MEDIUM_SCHEDULER,
-    LONG_SCHEDULER
+    MULTILEVEL_SCHEDULER,
+    LONG_SCHEDULER,
 }scheduler_mode;
 
 typedef enum{
@@ -46,8 +47,9 @@ typedef enum{
     SJF,
     /// @brief Planificador SJF sin desalojo
     SRT,
+    PRIORITY,
     /// @brief Highest Response Ratio Next
-    HRRN
+    HRRN,
 }scheduler_algorithm;
 
 typedef enum{

@@ -1,0 +1,10 @@
+#ifndef KERNEL_SCHEDULERS_LONG_SCHED_H
+#define KERNEL_SCHEDULERS_LONG_SCHED_H
+
+#ifndef KERNEL_SCHEDULERS_BASE_SCHEDULER_H
+#include "base_sched.h"
+#endif
+
+//HERE
+
+#endif
