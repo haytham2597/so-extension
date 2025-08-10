@@ -23,6 +23,7 @@ typedef enum{
     MODULE_IO,
     MODULE_CPU_DISPATCH,
     MODULE_CPU_INTERRUPT,
+    MODULE_FILESYSTEM,
     MODULE_MEMORY,
 }op_code_module;
 typedef enum{

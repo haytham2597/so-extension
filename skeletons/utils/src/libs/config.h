@@ -44,6 +44,15 @@ typedef struct{
 
 
 typedef struct{
+    int puerto_escucha;
+    char* mount_dir;
+    int block_size;
+    int block_count;
+    int retardo_acceso_bloque;
+    t_log_level log_level;
+}config_filesystem;
+
+typedef struct{
     char* ip_memoria;
     int puerto_memoria;
     char* ip_kernel;
@@ -193,6 +202,23 @@ config_memory load_config_memory(){
     cm.log_level=get_log_level();
     return cm;
 }
+
+
+/// @brief Carga los datos del filesystem. 
+/// Nota: previamente el método load_config(path) tiene que ser llamado
+/// @return config_filsystem
+config_filesystem load_config_filesystem(){
+    check_null_config();
+    config_filesystem cf;
+    cf.puerto_escucha = config_get_int_value(config, "PUERTO_ESCUCHA");
+    cf.mount_dir = config_get_string_value(config, "MOUNT_DIR");
+    cf.block_size = config_get_int_value(config, "BLOCK_SIZE");
+    cf.block_count = config_get_int_value(config, "BLOCK_COUNT");
+    cf.retardo_acceso_bloque = config_get_int_value(config, "RETARDO_ACCESO_BLOQUE");
+    cf.log_level = get_log_level();
+    return cf;
+}
+
 /// @brief Carga el archivo en variable global config
 /// @param path Ruta del .config
 /// @return retorna la variable  global config

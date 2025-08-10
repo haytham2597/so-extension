@@ -1,8 +1,11 @@
 tests/console/obj/main.o
 bin/*
 obj/*
+[Bb]in/
+[Oo]bj/
 tests/console/obj/*
 tests/console/bin/*
 *.log
-*/*.log
-tests/console/test.log
+*.o
+skeletons/filesystem/bin/filesystem
+skeletons/filesystem/obj/main.o
