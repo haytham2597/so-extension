@@ -2,14 +2,14 @@ include settings.mk
 
 ################################################################################
 
-outname = lib/lib$(1).a
+outname = bin/$(1)
 
 define compile_out
-	$(AR) $(ARFLAGS) "$@" $^
+	$(CC) $(CFLAGS) -o "$@" $^ $(IDIRS:%=-I%) $(LIBDIRS:%=-L%) $(RUNDIRS:%=-Wl,-rpath,%) $(LIBS:%=-l%)
 endef
 
 define compile_objs
-	$(CC) $(CFLAGS) -fPIC -c -o "$@" $< $(IDIRS:%=-I%)
+	$(CC) $(CFLAGS) -c -o "$@" $< $(IDIRS:%=-I%)
 endef
 
 ################################################################################

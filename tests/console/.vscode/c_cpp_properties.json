@@ -6,7 +6,8 @@
         "name": "Linux",
         "includePath": [
           "${workspaceFolder}/src",
-          "${workspaceFolder}/soexts/src"
+          "${workspaceFolder}/../soexts/src",
+          "${workspaceFolder}/**"
         ],
         "defines": [],
         "compilerPath": "/usr/bin/gcc",

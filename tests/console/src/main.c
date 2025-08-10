@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "commons/config.h"
 #include "exts/log_ext.h"
 #include "libs/logger.h"
 
