@@ -18,7 +18,7 @@ instr_code cast_code(char* name){
     if(string_equals_ignore_case(name, "IO"))
         return IO;
     if(string_equals_ignore_case(name, "EXIT"))
-        return INSTR_SYSCALL_EXIT;
+        return EXIT;
     if(string_equals_ignore_case(name, "NOOP"))
         return NOOP;
     if(string_equals_ignore_case(name, "WRITE"))

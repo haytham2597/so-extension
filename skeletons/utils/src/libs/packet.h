@@ -22,7 +22,7 @@
 /// @brief [PRIVATE]
 /// @param packet 
 void create_buffer(t_packet* packet){
-    packet->buffer = malloc(sizeof(t_buffer_dima));
+    packet->buffer = malloc(sizeof(t_buffer));
     packet->buffer->size = 0;
     packet->buffer->stream = NULL;
 }
@@ -70,7 +70,7 @@ void free_packet(t_packet* packet){
 }
 
 void free_instruction(instruction* instrs){
-    free(instrs->str);
+    free(instrs->resource);
     for(int i=0;i<instrs->sz_args;i++)
         free(instrs->args[i]);
     if(instrs->args)

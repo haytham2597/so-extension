@@ -10,8 +10,11 @@
 #include "commons/collections/list.h"
 #include "commons/bitarray.h"
 #include "commons/temporal.h"
+#include "inc/typedef.h"
 //#include "exts/temporal_ext.h"
 #define MAX_INPUT 255
+
+
 
 typedef struct{
     int pagina;
@@ -37,15 +40,9 @@ typedef struct{
 
 typedef struct{
 	int pid;
-	t_estado_proceso estado;
+	state_process estado;
 	t_temporal* tiempo_transcurrido;
 } pid_y_estado;
-
-typedef struct
-{
-	int size;
-	void *stream;
-} t_buffer;
 
 typedef struct{ 
 	int fd_dispatch;
@@ -80,11 +77,6 @@ typedef struct{
     char* timestamp;
 } args_thread_bloqueo;
 
-typedef struct
-{
-	op_code codigo_operacion;
-	t_buffer *buffer;
-} t_paquete;
 
 typedef struct{
 	int pid;
@@ -117,13 +109,13 @@ typedef struct
 typedef struct{
     int size;
     void* stream;
-}t_buffer_dima;
+}t_buffer;
 
 typedef struct{
     /// @brief Código de operación
-    op_code_dima opcode;
+    op_code opcode;
     /// @brief Buffer
-    t_buffer_dima* buffer;
+    t_buffer* buffer;
 }t_packet;
 
 typedef struct{
@@ -143,13 +135,13 @@ typedef struct{
     char* cpu_id;
 }t_pcb;
 
-typedef struct
-{
+typedef struct{
     instr_code icode;
     int sz_args;
+    char* resource;
+    char* filename;
     datatype* types;
     void** args;
-    char* str; //Por posibles problemas con void** prefiero prevenir el error y agregar en str los que son cadenas como las instrucciones WRITE o INIT_PROC
 }instruction;
 
 typedef struct
@@ -344,4 +336,58 @@ typedef struct{
     int n_page;
     int slot;
 }swap_reg;
+
+
+typedef struct
+{
+    op_code_module ocm_from;
+    int sock_client;
+    int sock_server_listen;
+    op_code_module ocm_internal;
+}packet_callback_event_args;
+
+typedef struct{
+    uint32_t pc;
+    uint32_t ax;
+    uint32_t bx;
+    uint32_t cx;
+    uint32_t dx;
+    uint32_t ex;
+    uint32_t fx;
+    uint32_t gx;
+    uint32_t hx;
+    /// @brief Base
+    uint32_t base;
+    /// @brief Desplazamiento
+    uint32_t limit; 
+}reg_cpu;
+
+
+typedef struct {
+    char* resource_name;        // Nombre del recurso protegido por el mutex
+    int used;          // Indica si el mutex está tomado (1) o no (0)
+    tid_t tid;      // TID del hilo que ha tomado el mutex (si está tomado)
+    t_list* waiting_tids;
+} t_mutex;
+typedef struct{
+    pid_t pid;
+    /// @brief Identificador único de TCB
+    tid_t tid;
+    /// @brief Prioridad
+    int priority;
+    /// @brief Estado del hilo (STATE_NEW, STATE_READY, etc.)
+    state_process state;            
+    /// @brief Motivo de Bloqueo
+    blocking_reason motivoBloqueo;
+    /// @brief Registro de CPU
+    reg_cpu* regcpu;
+    // Referencia al pseudocódigo
+    char* filepath;      
+    t_mutex* mutex;
+    t_pcb* pointer_pcb;
+    tid_t blocked_by_tid;
+    int desalojado;
+    int arrival_time;
+}t_tcb;
+
 #endif

@@ -1,2 +1,6 @@
+#include "base.h"
+#include "signal.h"
 
-#include "libs/logger.h"
+#include <semaphore.h>
+
+void* attend_client(void* params);

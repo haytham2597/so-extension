@@ -18,12 +18,10 @@ void free_element(void* elem){
 /// @param ocm Op code module
 /// @return a char* of opcode module
 char* ocm_to_string(int ocm){
-    if((int)ocm == IDENTIFICARSE_DISPATCH_KERNEL)
+    if((int)ocm == MODULE_KERNEL)
         return "MODULE_KERNEL";
-    if(ocm == IDENTIFICARSE_DISPATCH_MEMORIA)
+    if(ocm == MODULE_CPU_DISPATCH)
         return "MODULE_CPU_DISPATCH";
-    /*if(ocm == MODULE_CPU_DISPATCH)
-        return "MODULE_CPU_DISPATCH";*/
     if(ocm == MODULE_CPU_INTERRUPT)
         return "MODULE_CPU_INTERRUPT";
     if(ocm == MODULE_MEMORY)
@@ -40,7 +38,7 @@ char* instr_to_string(instr_code icode){
         return "DUMP_MEMORY";
     if(icode == IO)
         return "IO";
-    if(icode == INSTR_SYSCALL_EXIT)
+    if(icode == EXIT)
         return "EXIT";
     if(icode == NOOP)
         return "NOOP";
@@ -50,6 +48,16 @@ char* instr_to_string(instr_code icode){
         return "READ";
     if(icode == GOTO)
         return "GOTO";
+    if(icode == SUM)
+        return "SUM";
+    if(icode == SUB)
+        return "SUB";
+    if(icode == MUL)
+        return "MUL";
+    if(icode == DIV)
+        return "DIV";
+    if(icode == INVALID_INSTRUCTION)
+        return "INVALID_INSTRUCTION";
     return string_new();
 }
 

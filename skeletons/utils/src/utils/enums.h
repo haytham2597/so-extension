@@ -73,6 +73,7 @@ typedef enum{
     RESCHEDULE,
     /// @brief El proceso terminó de ejecutarse
     PROCESS_FINISHED,
+    SUCCESS_SYSCALL,
     /// @brief Error general
     ERROR,
 }response;
@@ -126,6 +127,13 @@ typedef enum{
     REQUEST_UPDATE_CONTEXT_EXECUTION,
 	REQUEST_INFO,
 	REQUEST_ACTION,
+	REQUEST_RESOURCES,
+    REQUEST_BLOCKING_REASON,
+    REQUEST_INTERRUPT,
+	REQUEST_DIR,
+    REQUEST_CREATE_FILE,
+    REQUEST_UPDATE_TCB_FIELD,
+	REQUEST_EXECUTE_SCRIPT_KERNEL,
 	REQUEST_KNOW
 }request;
 
@@ -139,6 +147,7 @@ typedef enum{
     DUMP_MEMORY,
     /// @brief (Tiempo)
     IO,
+    EXIT,
     /// @brief No Operation, sólo va a consumir tiempo
     NOOP,
     /// @brief (Dirección, Datos)
@@ -147,14 +156,58 @@ typedef enum{
     READ,
     /// @brief (Valor) Actualiza el PC del Proceso
     GOTO,
+    SET,
+    JNZ,
+    LOG,
     SUM,
     SUB,
+    MUL,
+    DIV,
     INVALID_INSTRUCTION,
+    PROCESS_CREATE,
+    PROCESS_EXIT,
+    /// @brief (Nombre del archivo Pseudocódigo, Prioridad) esta syscall recibirá como parámetro de la CPU el nombre del archivo de pseudocódigo que deberá ejecutar el hilo a crear y su prioridad. 
+    /// Al momento de crear el nuevo hilo, deberá generar el nuevo TCB con un TID autoincremental y poner al mismo en el estado READY.
+    THREAD_CREATE,
+    /// @brief (TID) esta syscall recibe como parámetro un TID, mueve el hilo que la invocó al estado 
+    /// BLOCK hasta que el TID pasado por parámetro finalice. En caso de que el TID pasado por parámetro 
+    /// no exista o ya haya finalizado, esta syscall no hace nada y el hilo que la invocó continuará su ejecución.
+    THREAD_JOIN,
+    /// @brief (TID) esta syscall recibe como parámetro un TID con el objetivo de finalizarlo pasando al mismo al estado EXIT. 
+    /// Se deberá indicar a la Memoria la finalización de dicho hilo. En caso de que el TID pasado por parámetro no exista o ya haya finalizado, 
+    /// esta syscall no hace nada. Finalmente, el hilo que la invocó continuará su ejecución.
+    THREAD_CANCEL,
+    /// @brief (Recurso) esta syscall recibirá como parámetro de la CPU el nombre del archivo de pseudocódigo 
+    /// que deberá ejecutar el hilo a crear y su prioridad. Al momento de crear el nuevo hilo, deberá generar 
+    /// el nuevo TCB con un TID autoincremental y poner al mismo en el estado READY.
+    MUTEX_CREATE,
+    /// @brief (Recurso) se deberá verificar primero que exista el mutex solicitado y en caso de que exista y el mismo no se encuentre tomado se deberá asignar dicho mutex al hilo correspondiente. 
+    /// En caso de que el mutex se encuentre tomado, el hilo que realizó MUTEX_LOCK se bloqueará en la cola de bloqueados correspondiente a dicho mutex.
+    MUTEX_LOCK,
+    /// @brief (Recurso) se deberá verificar primero que exista el mutex solicitado y esté tomado por el hilo que realizó la syscall. 
+    /// En caso de que corresponda, se deberá desbloquear al primer hilo de la cola de bloqueados de ese mutex y le asignará el mutex 
+    /// al hilo recién desbloqueado. 
+    /// Una vez hecho esto, se devuelve la ejecución al hilo que realizó la syscall MUTEX_UNLOCK. 
+    /// En caso de que el hilo que realiza la syscall no tenga asignado el mutex, no realizará ningún desbloqueo.
+    MUTEX_UNLOCK,
+    /// @brief esta syscall finaliza al hilo que lo invocó, pasando el mismo al estado EXIT. Se deberá indicar a la Memoria la finalización de dicho hilo.
+    THREAD_EXIT,
 }instr_code;
 
-typedef enum{
 
-}instr_syscalls;
+typedef enum{
+    /// @brief No se asignó ningún bloqueo
+    BLOCK_NONE=REQUEST_CONTEXT_EXECUTION+1,
+    /// @brief Bloqueo de IO
+    BLOCK_IO,
+    /// @brief Bloqueo por Mutex
+    BLOCK_MUTEX,
+    /// @brief Bloqueo por THREAD_JOIN
+    BLOCK_JOIN,
+    /// @brief Bloqueo desconocido (esto no debe suceder)
+    BLOCK_UNKOWN
+}blocking_reason;
+
 
 typedef enum{
 
