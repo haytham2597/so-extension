@@ -105,7 +105,7 @@ void add_pseudocode(pid_t pid, char* fullpath){
     
 }
 
-void free_pseudocode(pid_t pid){
+void free_pseudocode_pid(pid_t pid){
     pseudocode*  pseudo = get_pseudo(pid);
     if(pseudo == NULL)
         return;
